@@ -458,37 +458,39 @@ const ProfileUser = ({ user, loading }) => {
                 </div>
               </div>
               {/* Job Preferences */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <b>Job Preferences</b>
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Input
-                    lablename="First Choice"
-                    type="text"
-                    name="first"
-                    value={formData.jobPreference?.first || ""}
-                    onChange={handleJobPreferences}
-                    disabled={!isEditMode}
-                  />
-                  <Input
-                    lablename="Second Choice"
-                    type="text"
-                    name="second"
-                    value={formData.jobPreference?.second || ""}
-                    onChange={handleJobPreferences}
-                    disabled={!isEditMode}
-                  />
-                  <Input
-                    lablename="Third Choice"
-                    type="text"
-                    name="third"
-                    value={formData.jobPreference?.third || ""}
-                    onChange={handleJobPreferences}
-                    disabled={!isEditMode}
-                  />
+              {user?.role != "Recruiter" && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <b>Job Preferences</b>
+                  </label>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <Input
+                      lablename="First Choice"
+                      type="text"
+                      name="first"
+                      value={formData.jobPreference?.first || ""}
+                      onChange={handleJobPreferences}
+                      disabled={!isEditMode}
+                    />
+                    <Input
+                      lablename="Second Choice"
+                      type="text"
+                      name="second"
+                      value={formData.jobPreference?.second || ""}
+                      onChange={handleJobPreferences}
+                      disabled={!isEditMode}
+                    />
+                    <Input
+                      lablename="Third Choice"
+                      type="text"
+                      name="third"
+                      value={formData.jobPreference?.third || ""}
+                      onChange={handleJobPreferences}
+                      disabled={!isEditMode}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Resume Section */}
 

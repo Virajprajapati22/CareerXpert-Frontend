@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Jobcard from "./Jobcard";
 import RadioDropdown from "./RadioDropdown";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
-const Home_jobs = () => {
+const Home_jobs = (props) => {
+  var BASE_URL = "http://localhost:5001";
+  const [allJobs, setAllJobs] = useState([]);
   const [filters, setFilters] = useState({
     location: "",
     role: "",
@@ -87,9 +89,45 @@ const Home_jobs = () => {
     );
   });
 
+  const fetchJobs = async () => {
+    const url = `${BASE_URL}/api/v1/jobs/`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to fetch job data");
+      }
+
+      const data = await response.json();
+
+      if (data.status !== "success") {
+        throw new Error("Unexpected response format");
+      }
+
+      return data.jobs;
+    } catch (error) {
+      console.error("Error fetching jobs:", error.message);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const func = async () => {
+      const jobs = await fetchJobs();
+      setAllJobs(jobs);
+    };
+    func();
+  }, []);
+
   return (
     <div>
-      <Navbar />
+      <Navbar user={props?.user} />
       <div className="flex gap-10 min-h-screen">
         {/* Sidebar for filters */}
         <div className="flex flex-col bg-gray-100 p-4 space-y-4">

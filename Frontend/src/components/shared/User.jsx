@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import google from "./google.png";
 
 const User = (props) => {
-  console.log(props, "PROPS");
-
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       {" "}
@@ -28,12 +26,12 @@ const User = (props) => {
                 </Link>
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
               </li>
-              <li className="relative group pb-1">
+              {/* <li className="relative group pb-1">
                 <Link to="/jobs">
                   <span>Jobs</span>
                 </Link>
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
-              </li>
+              </li> */}
 
               {/* Conditional Link Based on Role */}
               {props.role === "Job Seeker" ? (

@@ -91,12 +91,12 @@ function App() {
     },
     {
       path: "/post-job",
-      element: <JobPost />,
+      element: <JobPost user={currUser} />,
     },
-    {
-      path: "/jobs",
-      element: <Job_pages />,
-    },
+    // {
+    //   path: "/jobs",
+    //   element: <Job_pages />,
+    // },
     {
       path: "/reset-password/:token",
       element: <ResetPassword />,
@@ -111,15 +111,15 @@ function App() {
     // }
     {
       path: "/companylist",
-      element: <CompanyList setcompanyData={setcompanyData} />,
+      element: <CompanyList setcompanyData={setcompanyData} user={currUser} />,
     },
     {
       path: "/joblist",
-      element: <JobList />,
+      element: <JobList user={currUser} />,
     },
     {
       path: "/userdetails",
-      element: <ResumeTable />,
+      element: <ResumeTable user={currUser} />,
     },
     {
       path: "/profileuser",
@@ -140,7 +140,7 @@ function App() {
 
     {
       path: "/homejob",
-      element: <Home_jobs />,
+      element: <Home_jobs user={currUser} />,
     },
 
     {
