@@ -131,7 +131,7 @@ function App() {
     },
     {
       path: "/jobapply",
-      element: <Job_Apply />,
+      element: <Job_Apply user={currUser} />,
     },
     {
       path: "/jobdcard",

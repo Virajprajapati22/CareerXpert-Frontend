@@ -3,6 +3,7 @@ import google from "./google.png";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import toast from "react-hot-toast";
 
 const ApplyJobDcard = (props) => {
   var BASE_URL = "http://localhost:5001";
@@ -21,6 +22,7 @@ const ApplyJobDcard = (props) => {
   const getToken = () => {
     return localStorage.getItem("TOKEN");
   };
+  const token = getToken();
 
   // fetch the user data
   const fetchJobDetails = async () => {
@@ -55,6 +57,44 @@ const ApplyJobDcard = (props) => {
     func();
   }, []);
 
+  const handleJobApply = async () => {
+    try {
+      const resumeUrl = props?.user?.resume?.url;
+      if (!resumeUrl) {
+        alert("Resume not found. Please upload your resume.");
+        return;
+      }
+      const response = await fetch(
+        `${BASE_URL}/api/v1/application/${job_id}/apply`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            resume: resumeUrl, // Include the resume in the request body
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to apply for the job");
+      }
+
+      const data = await response.json();
+
+      console.log("Application submitted successfully:", data);
+      // alert("Application submitted successfully!");
+      toast("Application Submitted");
+    } catch (error) {
+      console.error("Error applying for the job:", error);
+      // alert(error.message || "Something went wrong. Please try again.");
+      toast(error.message);
+    }
+  };
+
   const updatedDate = new Date(currentJobDetail?.updatedAt).toLocaleDateString(
     "en-US",
     {
@@ -76,6 +116,8 @@ const ApplyJobDcard = (props) => {
   const formatSalaryToLPA = `${(currentJobDetail?.salary / 100000).toFixed(
     2
   )} LPA`;
+
+  // console.log(props, "[PROPS]");
 
   return (
     <div>
@@ -103,7 +145,7 @@ const ApplyJobDcard = (props) => {
           </div>
           {role != "Recruiter" && (
             <button
-              onClick={route}
+              onClick={handleJobApply}
               className="bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold"
             >
               {" "}

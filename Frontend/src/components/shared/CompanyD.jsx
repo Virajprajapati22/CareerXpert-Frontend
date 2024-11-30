@@ -15,6 +15,7 @@ function CompanyD(props) {
   const { search } = useLocation(); // Get the query string from the URL
   const queryParams = new URLSearchParams(search); // Parse the query string
   const company_id = queryParams.get("company_id");
+  const job_id = queryParams.get("job_id");
   const role = queryParams.get("role");
 
   const fetchCompanyDetails = async () => {
@@ -75,7 +76,7 @@ function CompanyD(props) {
     func();
   }, []);
 
-  console.log(currentCompany, "[currentCompany]");
+  console.log(jobCards, "[currentCompany]");
 
   return (
     <>
@@ -111,7 +112,7 @@ function CompanyD(props) {
 
         {/* Content Sections */}
         <Company_2
-          title="About HDFC Bank"
+          title={`About ${currentCompany?.name}`}
           content={currentCompany?.about}
           showMore={false}
           // setShowMore={setShowMoreAbout}
@@ -128,17 +129,24 @@ function CompanyD(props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {jobCards?.map((job) => {
               const deadline = new Date(job?.deadline);
+              if (isNaN(deadline.getTime())) {
+                console.error("Invalid deadline date:", job?.deadline);
+                return null;
+              }
+
               const now = new Date();
-              const timeDifference = deadline - now; // Difference in milliseconds
-              const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert ms to days
-              // setDaysLeft(days > 0 ? days : 0);
+              const timeDifference = deadline - now;
+              const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
               return (
-                <Link key={job?._id} to="/applyjobdcard">
+                <Link
+                  key={job?._id}
+                  to={`/applyjobdcard?job_id=${job?._id}&role=${role}`}
+                >
                   <CompanyD_1
                     title={job?.title}
-                    company={job.company.name}
-                    daysLeft={days}
+                    company={job?.company?.name || "Unknown Company"}
+                    daysLeft={days > 0 ? days : "Deadline Passed"}
                   />
                 </Link>
               );
