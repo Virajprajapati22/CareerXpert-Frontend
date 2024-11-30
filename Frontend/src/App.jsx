@@ -145,11 +145,11 @@ function App() {
 
     {
       path: "/companydescription",
-      element: <CompanyD />,
+      element: <CompanyD user={currUser} />,
     },
     {
       path: "/applyjobdcard",
-      element: <ApplyJobDcard />,
+      element: <ApplyJobDcard user={currUser} />,
     },
   ]);
 
