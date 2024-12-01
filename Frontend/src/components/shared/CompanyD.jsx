@@ -6,7 +6,7 @@ import ReviewSection from "./ReviewSection";
 import HDFC from "./HDFC.png";
 import Navbar from "./Navbar";
 function CompanyD(props) {
-  var BASE_URL = "http://localhost:5001";
+  var BASE_URL = import.meta.env.VITE_BACKEND_HOST;
   const [showMoreAbout, setShowMoreAbout] = useState(false);
   const [showMoreCulture, setShowMoreCulture] = useState(false);
   const [currentCompany, setCurrentCompany] = useState(null);
@@ -45,10 +45,6 @@ function CompanyD(props) {
     try {
       const response = await fetch(`${BASE_URL}/api/v1/job/${company_id}`, {
         method: "GET",
-        headers: {
-          //   "Content-Type": "application/json",
-          //   Authorization: `Bearer ${token}`, // Send token in Authorization header
-        },
       });
 
       if (!response.ok) {
@@ -75,8 +71,6 @@ function CompanyD(props) {
 
     func();
   }, []);
-
-  console.log(jobCards, "[currentCompany]");
 
   return (
     <>

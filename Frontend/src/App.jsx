@@ -24,7 +24,7 @@ import CompanyD from "./components/shared/CompanyD";
 import ApplyJobDcard from "./components/shared/ApplyJobDcard";
 
 function App() {
-  var BASE_URL = "http://localhost:5001";
+  var BASE_URL = import.meta.env.VITE_BACKEND_HOST;
   const [companyData, setcompanyData] = useState({});
   const [currUser, setCurrUser] = useState();
 

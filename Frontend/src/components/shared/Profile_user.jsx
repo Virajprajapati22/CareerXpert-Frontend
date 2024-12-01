@@ -154,11 +154,11 @@ const ProfileUser = ({ user, loading }) => {
       console.log(`${key}:`, value);
     }
 
-    let base_url = "http://localhost:5001";
+    let BASE_URL = import.meta.env.VITE_BACKEND_HOST;
     let token = getToken();
 
     try {
-      const response = await fetch(`${base_url}/api/v1/user/update-profile/`, {
+      const response = await fetch(`${BASE_URL}/api/v1/user/update-profile/`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

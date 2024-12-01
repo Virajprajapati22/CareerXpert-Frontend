@@ -32,9 +32,6 @@ const CompanyList = (props) => {
               Authorization: `Bearer ${token}`, // Send token in Authorization header
             },
           }
-          //   {
-          //     withCredentials: true, // Ensures cookies are sent with request (for authentication)
-          //   }
         );
         setCompanies(response.data.companies); // Set the companies data to the state
       } catch (error) {

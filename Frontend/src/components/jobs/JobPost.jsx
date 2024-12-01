@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 
 const JobPost = (props) => {
-  var BASE_URL = "http://localhost:5001";
+  var BASE_URL = import.meta.env.VITE_BACKEND_HOST;
   const [jobDetails, setJobDetails] = useState({
     title: "",
     description: "",
