@@ -59,7 +59,7 @@ const JobPost = (props) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/v1/job/${company_id}`,
+        `${BASE_URL}/api/v1/job/${company_id}`,
         jobDetails,
         {
           // withCredentials: true
