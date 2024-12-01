@@ -40,6 +40,7 @@ function App() {
       console.error("No token found");
       return null;
     }
+    console.log(currUser, "[URL]");
 
     try {
       const response = await fetch(`${BASE_URL}/api/v1/user/me`, {
